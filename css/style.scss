@@ -43,9 +43,11 @@ h1,h2,h3,h4,h5 {
 }
 .image-box {
   position: relative;
-      width:40%;
+      width:94%;
+      max-height:200px;
+      min-height: 200px;
    float:left;
-   height:300px;
+   height:200px;
    text-align: center;
     overflow-y: hidden;
         border:2px solid #ddd;
@@ -55,9 +57,13 @@ h1,h2,h3,h4,h5 {
     background:#fafafa;
 }
 h3.place {
-margin-top:-2em;
-margin-bottom:2em;
-position:absolute;
+font-size: 1.3em;
+text-align:center;
+width: 100%;
+margin-bottom: 10px;
+}
+h3.place:first-of-type {
+  margin-top:10px;
 }
 .locations img {
     max-width:100%;
@@ -78,10 +84,10 @@ map area:hover {
    width:60%;
     float:right;
 
-
 }
 
 .zoomContainer {
+  position:fixed;
 	@media screen and (-webkit-device-pixel-ratio: 1) {
     top:0!important;
     left:0!important;
@@ -194,11 +200,11 @@ padding: 5px;
 }
 .artLink {
     display: inline-block;
-    margin:0 1em;
+    margin:1em;
 
 }
 .one-half {
- 
+ width:40%;
 }
 area:hover {
   cursor: pointer
@@ -249,7 +255,7 @@ area:hover {
 }
 
 .image-zoom {
-	position:absolute;
+	position:fixed;
 	z-index:99;
 	top:0;left:0;bottom:0;right:0;
 	margin:auto;
@@ -259,7 +265,7 @@ area:hover {
 	display:none;
 }
 .zoom-instructions {
-	position:absolute;
+	position:fixed;
 	top:1em;
 	left:1em;
 	border-radius:5px;

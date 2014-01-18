@@ -34,10 +34,12 @@
     <div class="overlay">
 
     </div>
-<div class="zoom-instructions"><a class="close">x</a><p>Move the lens over the image to see an enlargement (it may take a minute for the enlargement to load). Turn the mousewheel to zoom in and out.</p></div>
+    <div class="zoom-instructions"><a class="close">x</a>
+        <p>Move the lens over the image to see an enlargement (it may take a minute for the enlargement to load). Turn the mousewheel to zoom in and out.</p>
+    </div>
     <div class="image-zoom">
         <a class="close">x</a>
-       
+
     </div>
     <div class="spinner">
         <div class="cube1"></div>
@@ -49,7 +51,7 @@
             <map>
                 <area shape="circle" coords="109,115,42" name="haarlem" />
                 <area shape="circle" coords="207,125,40" name="amsterdam" />
-               <area shape="circle" coords="281,286,33" name="utrecht" />
+                <area shape="circle" coords="281,286,33" name="utrecht" />
                 <area shape="circle" coords="54,248,32" name="leiden" />
                 <area shape="circle" coords="553,436,30" name="nijmegen" />
                 <area shape="circle" coords="122,464,32" name="dordrecht" />
@@ -74,7 +76,7 @@
     <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="js/perfect-scrollbar.js"></script>
     <script type="text/javascript" src="js/jquery.elevatezoom.js"></script>
-
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/1.5.25/jquery.isotope.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
         $('img[usemap]').rwdImageMaps();
@@ -88,11 +90,9 @@
             $('.overlay, .spinner').show();
 
             var place = $(this).attr('name');
-
             place = capitaliseFirstLetter(place);
 
             var API = 'https://www.rijksmuseum.nl/api/en/collection?key=pmgmbU1o&format=json&type=schilderij&place=' + place + '&showImage=true';
-console.log(API);
 
             $.getJSON(API, {
                 format: 'json'
@@ -102,24 +102,34 @@ console.log(API);
                     $('.overlay, .spinner').hide();
                     $('<h3 class="place">' + place + '</h3><div class="image-box ' + place + '"><a class="close">X</a>').appendTo('.image-container');
                     $.each(data.artObjects, function(index, artObject) {
-                    	if (artObject.webImage !== null) {
-                        $('<a class="artLink" href="' + artObject.webImage.url + '"><img class="artObject" title = "' + artObject.longTitle + '" src="' + artObject.webImage.url.replace("s0", "s256") + '" data-zoom="' + artObject.webImage.url.replace("s0", "s650") + '"></a>').appendTo('.' + place);
+                        if (artObject.webImage !== null) {
+                            $('<a class="artLink" href="' + artObject.webImage.url + '"><img class="artObject" title = "' + artObject.longTitle + '" src="' + artObject.webImage.url.replace("s0", "s256") + '" data-zoom="' + artObject.webImage.url.replace("s0", "s650") + '"></a>').appendTo('.' + place);
                         }
-
                         $('</div>').appendTo('.image-container');
+                       
+
                         $('.image-container').sortable();
                         $('.image-box').perfectScrollbar({
                             wheelSpeed: 35,
                             suppressScrollX: true
                         });
+
                         title = artObject.longTitle;
-                        var boxNumber = $('.image-container > .image-box').size();
-                        if (boxNumber >= 4) {
-                            $('.image-box').addClass('one-half');
-                        }
+                        //var boxNumber = $('.image-container > .image-box').size();
+                        //if (boxNumber >= 4) {
+                        //   $('.image-box, h3.place').addClass('one-half');
+                        // }
 
-
+                       
                     });
+  $('.' + place).ready(function() {
+                            $('div.image-box:last').isotope({
+                                itemSelector: '.artLink',
+                                layoutMode: 'masonry',
+
+                            });
+                        });
+
 
                     $('.artLink').click(function(e) {
                         e.preventDefault();
@@ -129,12 +139,14 @@ console.log(API);
                         var zoomed = '<img id="zoomed" src="' + smallImg + '" data-zoom-image="' + largeImg + '">'
                         var imgTitle = $(this).children('img').attr('title');
                         var imgCaption = '<span class="img-title">' + imgTitle + '</span>';
-                   
+
                         $('.overlay, .zoom-instructions').show();
                         $('.image-zoom').show().append(zoomed, imgCaption);
-                       $('#zoomed').bind("load", function() {
+                        
+                        $('#zoomed').bind("load", function() {
                             zoomHeight = $('#zoomed').height();
                             zoomWidth = $('#zoomed').width();
+                            
 
                             var isChrome = window.chrome;
                             var isSafari = navigator.userAgent.toLowerCase().indexOf('safari/') > -1;
@@ -161,6 +173,7 @@ console.log(API);
                     });
 
                     $('a.close').click(function() {
+                        $(this).parent('.image-box').siblings('h3').fadeOut();
                         $(this).parent('.image-box').fadeOut(function() {
                             $(this).remove();
                             var boxNumber = $('.image-container > .image-box').size();
