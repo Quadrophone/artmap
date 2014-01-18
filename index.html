@@ -70,10 +70,12 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/1.5.25/jquery.isotope.min.js"></script>
     <script type="text/javascript" src="js/jquery.rwdImageMaps.min.js"></script>
     <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="js/perfect-scrollbar.js"></script>
-    <script type="text/javascript" src="js/jquery.elevateZoom.js"></script>
+    <script type="text/javascript" src="js/jquery.elevatezoom.js"></script>
+
     <script type="text/javascript">
     $(document).ready(function() {
         $('img[usemap]').rwdImageMaps();
@@ -185,7 +187,58 @@ console.log(API);
     });
     </script>
 
-  
+    <!--
+<p>' + artObject.longTitle + '</p>
+
+
+                    $('.artLink').click(function(e) {
+
+                        $('.notification').show();
+                        $('.compare').fadeIn();
+
+
+                        var imgLink = $(this).attr('href').replace('s0', 's256');
+                        var imgTitle = $(this).children('img').attr('title');
+
+                        var addImg = function() {
+
+                            var $newItems = $('<div class="draggable" style="display:inline-block;"><img class="resizable" src="' + imgLink + '" title="' + imgTitle + '"><a class="full-img" href="' + imgLink.replace('s500', 's0') + '" target="_blank">Full Image</a></div>').appendTo('.compare');
+                           
+                            /*$('.draggable').each(function() {
+                                $(this).draggable({
+                                    containment: ".compare"
+                                });
+                            });*/
+                        }(addImg);
+
+
+
+                        $('.draggable').click(function() {
+                            var zindex = parseInt($(this).css('z-index'));
+                            var background = parseInt($(this).siblings('.draggable').css('z-index'));
+                            var stack = background + 1;
+                            $(this).css('z-index', stack);
+                        })
+
+
+                        $('.draggable').dblclick(function() {
+                            $(this).remove();
+                            var imgCount = $('.compare > .draggable').size();
+                            if (imgCount === 0) {
+                                $('.notification,.compare').hide();
+                            }
+
+                        });
+                        $('.draggable').hover(
+                            function() {
+                                $(this).children('.full-img').show();
+                            }, function() {
+                                $(this).children('.full-img').hide();
+                            }
+                        );
+                        e.preventDefault();
+                    });
+-->
 
 </body>
 
