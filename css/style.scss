@@ -91,6 +91,9 @@ map area:hover {
 .zoomLens {
 	z-index:999999!important;
 }
+.zoomLens:hover {
+  cursor:none;
+}
 .instructions {
   padding:1em;
   text-align: center;
