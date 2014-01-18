@@ -87,7 +87,7 @@ map area:hover {
 }
 
 .zoomContainer {
-  position:fixed;
+
 	@media screen and (-webkit-device-pixel-ratio: 1) {
     top:0!important;
     left:0!important;
@@ -96,6 +96,7 @@ map area:hover {
 
 .zoomLens {
 	z-index:999999!important;
+
 }
 .zoomLens:hover {
   cursor:none;
@@ -255,7 +256,7 @@ area:hover {
 }
 
 .image-zoom {
-	position:fixed;
+	position:absolute;
 	z-index:99;
 	top:0;left:0;bottom:0;right:0;
 	margin:auto;
@@ -265,7 +266,7 @@ area:hover {
 	display:none;
 }
 .zoom-instructions {
-	position:fixed;
+	position:absolute;
 	top:1em;
 	left:1em;
 	border-radius:5px;
