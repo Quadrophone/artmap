@@ -180,12 +180,10 @@ map area:hover {
   width: 60%;
   float: right; }
 
-.zoomContainer {
-  position: fixed; }
-  @media screen and (-webkit-device-pixel-ratio: 1) {
-    .zoomContainer {
-      top: 0 !important;
-      left: 0 !important; } }
+@media screen and (-webkit-device-pixel-ratio: 1) {
+  .zoomContainer {
+    top: 0 !important;
+    left: 0 !important; } }
 
 .zoomLens {
   z-index: 999999 !important; }
@@ -338,7 +336,7 @@ area:hover {
   display: none; }
 
 .image-zoom {
-  position: fixed;
+  position: absolute;
   z-index: 99;
   top: 0;
   left: 0;
@@ -351,7 +349,7 @@ area:hover {
   display: none; }
 
 .zoom-instructions {
-  position: fixed;
+  position: absolute;
   top: 1em;
   left: 1em;
   border-radius: 5px;
