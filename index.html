@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ArtMap</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <meta property="og:image" content="" />
+    <meta property="og:title" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="" />
+    <meta property="og:type" content="" />
+    <link rel="stylesheet" href="css/style.css">
+    <!--
+
+          pmgmbU1o
+
+          -->
+    <style>
+    </style>
+</head>
+
+<body>
+    <noscript>
+        <p>This site is pretty much all Javascript; you'll need to turn it on to use the site</p>
+    </noscript>
+    <div class="overlay">
+
+    </div>
+<div class="zoom-instructions"><a class="close">x</a><p>Move the lens over the image to see an enlargement (it may take a minute for the enlargement to load). Turn the mousewheel to zoom in and out.</p></div>
+    <div class="image-zoom">
+        <a class="close">x</a>
+       
+    </div>
+    <div class="spinner">
+        <div class="cube1"></div>
+        <div class="cube2"></div>
+    </div>
+    <div class="locations">
+        <img src="img/map-slice.png" alt="" usemap="#map" />
+        <map name="map">
+            <map>
+                <area shape="circle" coords="109,115,42" name="haarlem" />
+                <area shape="circle" coords="207,125,40" name="amsterdam" />
+               <area shape="circle" coords="281,286,33" name="utrecht" />
+                <area shape="circle" coords="54,248,32" name="leiden" />
+                <area shape="circle" coords="553,436,30" name="nijmegen" />
+                <area shape="circle" coords="122,464,32" name="dordrecht" />
+            </map>
+
+        </map>
+
+    </div>
+    <div class="image-container">
+        <div class="instructions">
+            <h1>Welcome to ArtMap!</h1>
+            <p>Click a point on the map to see the paintings from that city</p>
+        </div>
+    </div>
+    <div class="notification">
+        <a class="close">X</a>
+        <p>Click and drag a painting to move it around. Double-click a painting to hide it. Drag the lower right corner of a painting to resize it. Click the "Full Image" link for a high-resolution photo.</p>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/jquery.rwdImageMaps.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="js/perfect-scrollbar.js"></script>
+    <script type="text/javascript" src="js/jquery.elevateZoom.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('img[usemap]').rwdImageMaps();
+
+        function capitaliseFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        $('area').click(function() {
+            $('.instructions').fadeOut();
+            $('.overlay, .spinner').show();
+
+            var place = $(this).attr('name');
+
+            place = capitaliseFirstLetter(place);
+
+            var API = 'https://www.rijksmuseum.nl/api/en/collection?key=pmgmbU1o&format=json&type=schilderij&place=' + place + '&showImage=true';
+console.log(API);
+
+            $.getJSON(API, {
+                format: 'json'
+            })
+                .success(function(data) {
+
+                    $('.overlay, .spinner').hide();
+                    $('<h3 class="place">' + place + '</h3><div class="image-box ' + place + '"><a class="close">X</a>').appendTo('.image-container');
+                    $.each(data.artObjects, function(index, artObject) {
+                    	if (artObject.webImage !== null) {
+                        $('<a class="artLink" href="' + artObject.webImage.url + '"><img class="artObject" title = "' + artObject.longTitle + '" src="' + artObject.webImage.url.replace("s0", "s256") + '" data-zoom="' + artObject.webImage.url.replace("s0", "s650") + '"></a>').appendTo('.' + place);
+                        }
+
+                        $('</div>').appendTo('.image-container');
+                        $('.image-container').sortable();
+                        $('.image-box').perfectScrollbar({
+                            wheelSpeed: 35,
+                            suppressScrollX: true
+                        });
+                        title = artObject.longTitle;
+                        var boxNumber = $('.image-container > .image-box').size();
+                        if (boxNumber >= 4) {
+                            $('.image-box').addClass('one-half');
+                        }
+
+
+                    });
+
+                    $('.artLink').click(function(e) {
+                        e.preventDefault();
+
+                        var smallImg = $(this).children('img').attr('data-zoom');
+                        var largeImg = $(this).attr('href');
+                        var zoomed = '<img id="zoomed" src="' + smallImg + '" data-zoom-image="' + largeImg + '">'
+                        var imgTitle = $(this).children('img').attr('title');
+                        var imgCaption = '<span class="img-title">' + imgTitle + '</span>';
+                   
+                        $('.overlay, .zoom-instructions').show();
+                        $('.image-zoom').show().append(zoomed, imgCaption);
+                       $('#zoomed').bind("load", function() {
+                            zoomHeight = $('#zoomed').height();
+                            zoomWidth = $('#zoomed').width();
+
+                            var isChrome = window.chrome;
+                            var isSafari = navigator.userAgent.toLowerCase().indexOf('safari/') > -1;
+                            if ((isChrome) || (isSafari)) {
+                                $('div.image-zoom').css({
+                                    height: (zoomHeight + 20),
+                                    width: (zoomWidth + 20)
+                                });
+                            } else {
+                                $('div.image-zoom').css({
+                                    height: (zoomHeight),
+                                    width: (zoomWidth)
+                                });
+                            }
+
+                            $("#zoomed").elevateZoom({
+                                zoomType: "lens",
+                                lensShape: "round",
+                                lensSize: 200,
+                                scrollZoom: true
+                            });
+                        })
+
+                    });
+
+                    $('a.close').click(function() {
+                        $(this).parent('.image-box').fadeOut(function() {
+                            $(this).remove();
+                            var boxNumber = $('.image-container > .image-box').size();
+                            if (boxNumber === 0) {
+                                $('.instructions').show();
+                            }
+                        });
+                    });
+
+
+                });
+        });
+
+        $('a.close').click(function() {
+            $(this).parent('div').hide();
+        });
+        $('.image-zoom > a.close, .overlay').click(function() {
+            $('.image-zoom > img').remove();
+            $('.image-zoom > span').remove();
+            $('.overlay, .image-zoom, .zoom-instructions').hide();
+            $('.zoomContainer').remove();
+        });
+    });
+    </script>
+
+  
+
+</body>
+
+</html>
