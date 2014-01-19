@@ -335,8 +335,11 @@ area:hover {
   background-color: rgba(0, 0, 0, 0.6);
   display: none; }
 
+a img, img {
+  border: none; }
+
 .image-zoom {
-  position: absolute;
+  position: fixed;
   z-index: 99;
   top: 0;
   left: 0;

@@ -184,7 +184,7 @@ if (typeof Object.create !== 'function') {
                     }
 
 
-                    self.lensStyle = "background-position: 0px 0px;width: " + String((self.options.zoomWindowWidth) / self.widthRatio) + "px;height: " + String((self.options.zoomWindowHeight) / self.heightRatio) + "px;float: right;display: none;" + "overflow: hidden;" + "z-index: 999;" + "-webkit-transform: translateZ(0);" + "opacity:" + (self.options.lensOpacity) + ";filter: alpha(opacity = " + (self.options.lensOpacity * 100) + "); zoom:1;" + "width:" + lensWidth + "px;" + "height:" + lensHeight + "px;" + "background-color:" + (self.options.lensColour) + ";" + "cursor:" + (self.options.cursor) + ";" + "border: " + (self.options.lensBorderSize) + "px" +
+                    self.lensStyle = "background-position: 0px 0px;width: " + String((self.options.zoomWindowWidth) / self.widthRatio) + "px;height: " + String((self.options.zoomWindowHeight) / self.heightRatio) + "px;float: right;display: block;" + "overflow: hidden;" + "z-index: 999;" + "-webkit-transform: translateZ(0);" + "opacity:" + (self.options.lensOpacity) + ";filter: alpha(opacity = " + (self.options.lensOpacity * 100) + "); zoom:1;" + "width:" + lensWidth + "px;" + "height:" + lensHeight + "px;" + "background-color:" + (self.options.lensColour) + ";" + "cursor:" + (self.options.cursor) + ";" + "border: " + (self.options.lensBorderSize) + "px" +
                         " solid " + (self.options.lensBorderColour) + ";background-repeat: no-repeat;position: absolute;";
                 }
 
