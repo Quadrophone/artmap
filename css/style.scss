@@ -44,8 +44,8 @@ h1,h2,h3,h4,h5 {
 .image-box {
   position: relative;
       width:94%;
-      max-height:200px;
-      min-height: 200px;
+      max-height:300px;
+      min-height: 300px;
    float:left;
    height:200px;
    text-align: center;
@@ -60,11 +60,9 @@ h3.place {
 font-size: 1.3em;
 text-align:center;
 width: 100%;
-margin-bottom: 10px;
+margin-top:-9px;
 }
-h3.place:first-of-type {
-  margin-top:10px;
-}
+
 .locations img {
     max-width:100%;
 }
@@ -115,6 +113,11 @@ map area:hover {
     display: inline-block;
 float: right;
 margin-right:5px;
+}
+.image-box .close {
+  position: absolute;
+  right:10px;
+  top:0;
 }
 .image-zoom .close {
 position: absolute;
@@ -253,7 +256,7 @@ area:hover {
     background-color:rgba(0,0,0,.6);
     display: none;
 }
-a img, img
+a img,
 {
   border:none;
 }
