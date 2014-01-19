@@ -168,12 +168,14 @@
                             zoomWidth = $('#zoomed').width();
 
                       
-                            if ((isChrome) || (isSafari) || (isIE)) {
+                            if ((isChrome) || (isSafari) ) {
                                 $('div.image-zoom').css({
                                     height: (zoomHeight + 20),
                                     width: (zoomWidth + 20)
                                 });
-                            } else {
+                            } 
+
+                            else {
                                 $('div.image-zoom').css({
                                     height: (zoomHeight),
                                     width: (zoomWidth)
