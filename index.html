@@ -104,24 +104,12 @@
             $.getJSON(API, {
                 format: 'json'
             })
-                .complete(function() {
-                     if ((isChrome) || (isSafari)) {
-                     }
-                     else {
-                    $('.image-box').isotope({
-                        itemSelector: '.artLink',
-                        layoutMode: 'masonry',
-
-                    });
-                }
-                })
                 .success(function(data) {
-
                     $('.overlay, .spinner').hide();
                     if ($('.' + place).length) {
                         alert(place + ' is already open!');
                     } else {
-                        $('<h3 class="place">' + place + '</h3><div class="image-box ' + place + '"><a class="close">X</a>').appendTo('.image-container');
+                        $('<div class="image-box ' + place + '"><h3 class="place">' + place + '</h3><a class="close">X</a>').appendTo('.image-container');
 
                         $.each(data.artObjects, function(index, artObject) {
                             if (artObject.webImage !== null) {
@@ -145,12 +133,6 @@
                         });
 
                     }
-
-
-
-
-
-
                     $('.artLink').click(function(e) {
                         e.preventDefault();
 
@@ -168,7 +150,7 @@
                             zoomWidth = $('#zoomed').width();
 
                       
-                            if ((isChrome) || (isSafari) ) {
+                            if ((isChrome) || (isSafari)) {
                                 $('div.image-zoom').css({
                                     height: (zoomHeight + 20),
                                     width: (zoomWidth + 20)
@@ -194,9 +176,15 @@
                         });
 
                     });
+})
+.complete(function(data) {
+  $('.image-box').isotope({
+                        itemSelector: '.artLink',
+                        layoutMode: 'masonry'
+
+                    });
 
                     $('a.close').click(function() {
-                        $(this).parent('.image-box').siblings('h3').fadeOut();
                         $(this).parent('.image-box').fadeOut(function() {
                             $(this).remove();
                             var boxNumber = $('.image-container > .image-box').size();
@@ -205,11 +193,14 @@
                             }
                         });
                     });
+});
 
 
-                });
-        });
 
+
+
+
+  
         $('a.close').click(function() {
             $(this).parent('div').hide();
         });
@@ -220,60 +211,10 @@
             $('.zoomContainer').remove();
         });
     });
+});
     </script>
 
-    <!--
-<p>' + artObject.longTitle + '</p>
-
-
-                    $('.artLink').click(function(e) {
-
-                        $('.notification').show();
-                        $('.compare').fadeIn();
-
-
-                        var imgLink = $(this).attr('href').replace('s0', 's256');
-                        var imgTitle = $(this).children('img').attr('title');
-
-                        var addImg = function() {
-
-                            var $newItems = $('<div class="draggable" style="display:inline-block;"><img class="resizable" src="' + imgLink + '" title="' + imgTitle + '"><a class="full-img" href="' + imgLink.replace('s500', 's0') + '" target="_blank">Full Image</a></div>').appendTo('.compare');
-                           
-                            /*$('.draggable').each(function() {
-                                $(this).draggable({
-                                    containment: ".compare"
-                                });
-                            });*/
-                        }(addImg);
-
-
-
-                        $('.draggable').click(function() {
-                            var zindex = parseInt($(this).css('z-index'));
-                            var background = parseInt($(this).siblings('.draggable').css('z-index'));
-                            var stack = background + 1;
-                            $(this).css('z-index', stack);
-                        })
-
-
-                        $('.draggable').dblclick(function() {
-                            $(this).remove();
-                            var imgCount = $('.compare > .draggable').size();
-                            if (imgCount === 0) {
-                                $('.notification,.compare').hide();
-                            }
-
-                        });
-                        $('.draggable').hover(
-                            function() {
-                                $(this).children('.full-img').show();
-                            }, function() {
-                                $(this).children('.full-img').hide();
-                            }
-                        );
-                        e.preventDefault();
-                    });
--->
+   
 
 </body>
 
