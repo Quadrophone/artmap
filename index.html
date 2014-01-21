@@ -18,11 +18,7 @@
     <meta property="og:site_name" content="" />
     <meta property="og:type" content="" />
     <link rel="stylesheet" href="css/style.css">
-    <!--
 
-          pmgmbU1o
-
-          -->
     <style>
     </style>
 </head>
@@ -76,7 +72,7 @@
     <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="js/perfect-scrollbar.js"></script>
     <script type="text/javascript" src="js/jquery.elevatezoom.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/1.5.25/jquery.isotope.min.js"></script>
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/1.5.25/jquery.isotope.min.js"></script>-->
     <script type="text/javascript">
     /*global $:false */
 
@@ -166,7 +162,7 @@
 
                             $("#zoomed").elevateZoom({
                                 zoomType: "lens",
-                                lensShape: "round",
+                                lensShape: "round",       
                                 lensSize: 200,
                                 scrollZoom: true
                             });
@@ -177,12 +173,12 @@
 
                     });
 })
-.complete(function(data) {
+/*.complete(function(data) {
   $('.image-box').isotope({
                         itemSelector: '.artLink',
                         layoutMode: 'masonry'
 
-                    });
+                    });*/
 
                     $('a.close').click(function() {
                         $(this).parent('.image-box').fadeOut(function() {
