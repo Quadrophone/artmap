@@ -492,3 +492,18 @@ a img {
   height: 9px;
   right: -5px;
   top: -5px; }
+
+@media screen and (max-width: 768px) {
+  .locations {
+    max-width: 100%;
+    text-align: center;
+    float: none;
+    display: block;
+    height: auto; }
+
+  .image-container {
+    width: 93%;
+    float: none; }
+
+  .instructions {
+    margin-top: 0; } }
