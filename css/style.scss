@@ -44,9 +44,8 @@ h1,h2,h3,h4,h5 {
     position: relative;
     width: 94%;
     max-height: 300px;
-    min-height: 300px;
+    min-height: 400px;
     float: left;
-    height: 200px;
     text-align: center;
     overflow-y: hidden;
     border: 2px solid #ddd;
@@ -61,6 +60,7 @@ h3.place {
     text-align: center;
     width: 100%;
     margin-top: -9px;
+    margin-bottom:1em;
 }
 
 .locations img {
@@ -75,7 +75,7 @@ h3.place {
     display: inline-block;
 }
 
-map area:hover {
+map:hover {
     cursor: pointer;
 }
 
@@ -99,6 +99,9 @@ map area:hover {
     cursor: none;
 }
 
+#zoomed:nth-of-type(2) {
+    display: none;
+}
 .instructions {
     padding: 1em;
     text-align: center;
@@ -139,10 +142,17 @@ map area:hover {
     margin: 0;
 }
 
-.img-title {
+div.img-title {
+    position: fixed;
+    bottom:0;
+    left:0;
+    text-align: center;
+    padding-bottom:1em;
+    width:100%;
+}
+span.img-title {
     background-color: #fafafa;
     margin-top: 1em;
-    display: block;
     padding: 10px;
     border: 1px solid #555;
     border-radius: 3px;
@@ -226,6 +236,7 @@ map area:hover {
 
 area:hover {
     cursor: pointer;
+    display: block !important;
 }
 
 .one-half img {
@@ -290,7 +301,7 @@ a img {
     right: 0;
     margin: auto;
     max-width: 800px;
-    max-height: 800px;
+
     border: 10px solid #fafafa;
     display: none;
 }
